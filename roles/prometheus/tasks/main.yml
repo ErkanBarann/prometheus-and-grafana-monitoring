@@ -1,0 +1,25 @@
+- name: Create Prometheus config directory
+  file:
+    path: /etc/prometheus
+    state: directory
+
+- name: Upload Prometheus config
+  template:
+    src: prometheus.yml.j2
+    dest: /etc/prometheus/prometheus.yml
+
+- name: Upload Alert rules
+  template:
+    src: alert.rules.yml.j2
+    dest: /etc/prometheus/alert.rules.yml
+
+- name: Upload Alertmanager config
+  template:
+    src: alertmanager.yml.j2
+    dest: /etc/alertmanager/alertmanager.yml
+
+- name: Restart Prometheus
+  systemd:
+    name: prometheus
+    state: restarted
+    enabled: yes

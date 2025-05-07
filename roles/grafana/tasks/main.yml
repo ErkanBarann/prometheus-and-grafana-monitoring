@@ -1,0 +1,19 @@
+- name: Install Grafana
+  apt:
+    name: grafana
+    state: present
+    update_cache: yes
+
+- name: Ensure Grafana service is running
+  systemd:
+    name: grafana-server
+    enabled: yes
+    state: started
+
+- name: Configure Prometheus data source in Grafana
+  include_tasks: configure_datasource.yml
+
+- name: Upload example dashboard
+  copy:
+    src: node_exporter_dashboard.json
+    dest: /var/lib/grafana/dashboards/node_exporter_dashboard.json

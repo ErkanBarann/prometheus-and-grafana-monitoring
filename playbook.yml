@@ -1,0 +1,7 @@
+- name: Advanced Monitoring Setup with Prometheus and Grafana
+  hosts: monitoring
+  become: yes
+
+  roles:
+    - prometheus
+    - grafana
